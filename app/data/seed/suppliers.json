@@ -1,0 +1,48 @@
+{
+  "_note": "Fictional companies. Ids, legal names and domains must match src/contracts/demo.ts (DEMO). Addresses, identifiers and people are invented.",
+  "suppliers": [
+    {
+      "label": "A",
+      "supplier": {
+        "id": "sup_A",
+        "legalName": "Keystone Actuation Inc.",
+        "domain": "keystoneactuation.example",
+        "address": { "line1": "2750 Eastern Blvd", "city": "York", "state": "PA", "zip": "17402", "country": "US" },
+        "uei": "KSA7K2M9QX41",
+        "cageCode": "7KSA1",
+        "ein": "23-4829175",
+        "contactEmail": "compliance@keystoneactuation.example",
+        "claimedUsProduction": true,
+        "createdAt": "2026-08-04T15:12:00.000Z"
+      }
+    },
+    {
+      "label": "B",
+      "supplier": {
+        "id": "sup_B",
+        "legalName": "Midland Motion Assembly LLC",
+        "domain": "midlandmotion.example",
+        "address": { "line1": "4100 James Savage Rd", "city": "Midland", "state": "MI", "zip": "48642", "country": "US" },
+        "uei": "MMA4P8T2LW93",
+        "cageCode": "8MMA4",
+        "ein": "38-3302719",
+        "contactEmail": "quality@midlandmotion.example",
+        "claimedUsProduction": true,
+        "createdAt": "2026-08-19T18:40:00.000Z"
+      }
+    },
+    {
+      "label": "C",
+      "supplier": {
+        "id": "sup_C",
+        "legalName": "Keystone Actuation Co.",
+        "domain": "keystone-actuation.example",
+        "address": { "line1": "1701 Concord Pike Ste 300 #4417", "city": "Wilmington", "state": "DE", "zip": "19803", "country": "US" },
+        "ein": "88-1203394",
+        "contactEmail": "sales@keystone-actuation.example",
+        "claimedUsProduction": true,
+        "createdAt": "2026-10-30T21:05:00.000Z"
+      }
+    }
+  ]
+}

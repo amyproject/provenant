@@ -1,0 +1,24 @@
+{
+  "_note": "Cached Google Address Validation (USPS CASS) results. dpvCmra = Y means a Commercial Mail Receiving Agency (virtual office / mailbox).",
+  "addresses": {
+    "2750 eastern blvd|17402": {
+      "dpvCmra": "N",
+      "dpvConfirmation": "Y",
+      "rdi": "Commercial",
+      "carrierRoute": "C014"
+    },
+    "4100 james savage rd|48642": {
+      "dpvCmra": "N",
+      "dpvConfirmation": "Y",
+      "rdi": "Commercial",
+      "carrierRoute": "C022"
+    },
+    "1701 concord pike ste 300 #4417|19803": {
+      "dpvCmra": "Y",
+      "dpvConfirmation": "Y",
+      "rdi": "Commercial",
+      "carrierRoute": "C005",
+      "note": "Suite is a mail-receiving storefront; #4417 is a private mailbox"
+    }
+  }
+}

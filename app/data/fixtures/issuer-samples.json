@@ -1,0 +1,24 @@
+{
+  "_note": "Metadata fingerprints of known-genuine documents per issuer (flag 4). Seeded from previously verified samples.",
+  "issuers": {
+    "Midwest Test Laboratories": {
+      "producers": [
+        "MTL LabReport 7.2",
+        "MTL LabReport 7.1"
+      ],
+      "templateIds": [
+        "MTL-TR-v7"
+      ],
+      "certNumberPattern": "^MTL-\\d{2}-\\d{6}$"
+    },
+    "Great Lakes Test & Certification": {
+      "producers": [
+        "GLTC CertSuite 3.1"
+      ],
+      "templateIds": [
+        "GLTC-TR-3"
+      ],
+      "certNumberPattern": "^GLTC-\\d{2}-\\d{5}$"
+    }
+  }
+}

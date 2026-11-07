@@ -1,0 +1,43 @@
+{
+  "_note": "Cached SAM.gov Entity Management API responses (fictional entities). Keyed by UEI.",
+  "entities": {
+    "KSA7K2M9QX41": {
+      "ueiSAM": "KSA7K2M9QX41",
+      "cageCode": "7KSA1",
+      "legalBusinessName": "KEYSTONE ACTUATION INC.",
+      "registrationStatus": "Active",
+      "registrationDate": "2011-03-14",
+      "activationDate": "2026-03-01",
+      "registrationExpirationDate": "2027-02-28",
+      "entityStartDate": "2008-02-02",
+      "physicalAddress": {
+        "addressLine1": "2750 EASTERN BLVD",
+        "city": "YORK",
+        "stateOrProvinceCode": "PA",
+        "zipCode": "17402",
+        "countryCode": "USA"
+      },
+      "exclusionStatusFlag": "N",
+      "naicsCode": "333612"
+    },
+    "MMA4P8T2LW93": {
+      "ueiSAM": "MMA4P8T2LW93",
+      "cageCode": "8MMA4",
+      "legalBusinessName": "MIDLAND MOTION ASSEMBLY LLC",
+      "registrationStatus": "Active",
+      "registrationDate": "2019-06-02",
+      "activationDate": "2026-05-20",
+      "registrationExpirationDate": "2027-05-19",
+      "entityStartDate": "2016-07-01",
+      "physicalAddress": {
+        "addressLine1": "4100 JAMES SAVAGE RD",
+        "city": "MIDLAND",
+        "stateOrProvinceCode": "MI",
+        "zipCode": "48642",
+        "countryCode": "USA"
+      },
+      "exclusionStatusFlag": "N",
+      "naicsCode": "333999"
+    }
+  }
+}

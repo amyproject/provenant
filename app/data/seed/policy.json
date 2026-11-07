@@ -1,0 +1,64 @@
+{
+  "id": "pol_default",
+  "name": "Hard-tech buyer default (Buy American 65%, FCC restricted origins)",
+  "domesticContentThreshold": 0.65,
+  "restrictedCountries": [
+    "CN",
+    "HK",
+    "MO",
+    "RU",
+    "IR",
+    "KP",
+    "CU",
+    "SY",
+    "BY"
+  ],
+  "tierFlags": {
+    "low": [
+      "F01_SIGNATURE_INVALID",
+      "F06_VIRTUAL_OFFICE",
+      "F07_IMPERSONATOR_NAME",
+      "F09_BANK_CHANGE_NO_REAUTH"
+    ],
+    "medium": [
+      "F01_SIGNATURE_INVALID",
+      "F06_VIRTUAL_OFFICE",
+      "F07_IMPERSONATOR_NAME",
+      "F09_BANK_CHANGE_NO_REAUTH",
+      "F03_REUSED_TEST_CERT",
+      "F04_DOC_METADATA_MISMATCH",
+      "F05_IMPORTED_FINISHED_GOODS",
+      "F08_PRICE_LEADTIME_OUTLIER"
+    ],
+    "high": [
+      "F01_SIGNATURE_INVALID",
+      "F02_TAG_CLONE",
+      "F03_REUSED_TEST_CERT",
+      "F04_DOC_METADATA_MISMATCH",
+      "F05_IMPORTED_FINISHED_GOODS",
+      "F06_VIRTUAL_OFFICE",
+      "F07_IMPERSONATOR_NAME",
+      "F08_PRICE_LEADTIME_OUTLIER",
+      "F09_BANK_CHANGE_NO_REAUTH",
+      "F10_UNDISCLOSED_SUBTIER_CHANGE"
+    ]
+  },
+  "quarantineAtFlagCount": 1,
+  "blockAtFlagCount": 2,
+  "tierRequiredEvidence": {
+    "low": [],
+    "medium": [
+      "facility_attestation",
+      "certificate_of_conformance"
+    ],
+    "high": [
+      "facility_attestation",
+      "certificate_of_conformance",
+      "certificate_of_origin",
+      "test_report",
+      "bom"
+    ]
+  },
+  "rechaseIntervalSec": 30,
+  "maxChaseAttempts": 3
+}

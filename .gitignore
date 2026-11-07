@@ -1,0 +1,21 @@
+# deps / build / local state (signing keys live in .data; never commit)
+node_modules/
+.next/
+.data/
+.env*
+!.env.example
+*.log
+.DS_Store
+next-env.d.ts
+
+# internal material, not part of the public prototype:
+# context/ = internal research/strategy doc; team/ = agent coordination + dashboard;
+# docs/marketing/ = internal brief with unverified competitor assessments and draft pricing
+context/
+team/
+docs/marketing/
+other/
+
+# in progress; publish separately once reviewed
+site/
+deck/

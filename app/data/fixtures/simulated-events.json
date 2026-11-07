@@ -1,0 +1,22 @@
+{
+  "_note": "Simulated signals for flags 2 (NFC tag challenge-response) and 9 (bank detail changes). UI-level simulation per the spec's Hackathon column.",
+  "tagChallenges": {
+    "KA80-2026-B0412": {
+      "result": "pass",
+      "tagUid": "04:A2:19:7C:3B:51:80"
+    },
+    "MMJ3-2026-0907": {
+      "result": "pass",
+      "tagUid": "04:C7:55:12:9E:23:80"
+    },
+    "MMJ3-2026-1103": {
+      "result": "pass",
+      "tagUid": "04:C7:55:12:9E:61:80"
+    },
+    "KA80-2026-C1187": {
+      "result": "no_tag",
+      "tagUid": null
+    }
+  },
+  "bankChanges": []
+}

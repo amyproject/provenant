@@ -1,0 +1,18 @@
+{
+  "_note": "Cached RDAP domain registration events (fictional domains).",
+  "domains": {
+    "keystoneactuation.example": {
+      "registration": "2008-03-11T00:00:00Z",
+      "registrar": "Example Registrar, Inc."
+    },
+    "midlandmotion.example": {
+      "registration": "2016-07-19T00:00:00Z",
+      "registrar": "Example Registrar, Inc."
+    },
+    "keystone-actuation.example": {
+      "registration": "2026-10-17T00:00:00Z",
+      "registrar": "Cheap Domains Example LLC",
+      "privacyProxy": true
+    }
+  }
+}

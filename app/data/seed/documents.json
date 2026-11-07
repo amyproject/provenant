@@ -1,0 +1,730 @@
+{
+ "_note": "Evidence documents. Each is rendered to a small deterministic PDF at seed time (src/server/seed/pdf.ts). `extracted` is the fixture extraction used when ANTHROPIC_API_KEY is not set (looked up by file sha256, then filename). held=true: on file at reset; held=false: arrives as a simulated supplier reply (replies.json). copyOf: byte-identical copy of another document (same sha256).",
+ "documents": [
+  {
+   "id": "doc_A_test_report",
+   "supplierId": "sup_A",
+   "kind": "test_report",
+   "held": true,
+   "filename": "MTL-24-118734_KA80_test_report.pdf",
+   "pdf": {
+    "title": "Test Report MTL-24-118734",
+    "author": "Midwest Test Laboratories",
+    "producer": "MTL LabReport 7.2",
+    "creationDate": "D:20260912103000Z",
+    "lines": [
+     "MIDWEST TEST LABORATORIES - TEST REPORT",
+     "Certificate No: MTL-24-118734",
+     "Issuer: Midwest Test Laboratories",
+     "Client: Keystone Actuation Inc.",
+     "Model: KA-80 Rotary Actuator",
+     "Serial/Batch: KA80-2026-B0412",
+     "Tests: IEC 60529 IP65 ingress, IEC 61000-4-2 ESD, 1000 h endurance at rated torque",
+     "Result: PASS",
+     "Issued: 2026-09-12",
+     "Template: MTL-TR-v7"
+    ]
+   },
+   "extracted": {
+    "documentType": "test_report",
+    "certNumber": "MTL-24-118734",
+    "issuer": "Midwest Test Laboratories",
+    "issuedDate": "2026-09-12",
+    "expiryDate": null,
+    "subjectCompany": "Keystone Actuation Inc.",
+    "facilityAddress": null,
+    "model": "KA-80 Rotary Actuator",
+    "serialOrBatch": "KA80-2026-B0412",
+    "countryOfOrigin": null,
+    "components": [],
+    "disclosedSubtierChanges": [],
+    "summary": "Third-party test report: KA-80 batch KA80-2026-B0412 passed IP65, ESD and 1000 h endurance testing."
+   },
+   "metadata": {
+    "templateId": "MTL-TR-v7"
+   }
+  },
+  {
+   "id": "doc_A_coc",
+   "supplierId": "sup_A",
+   "kind": "certificate_of_conformance",
+   "held": true,
+   "filename": "KA80-2026-B0412_CoC.pdf",
+   "pdf": {
+    "title": "Certificate of Conformance",
+    "author": "Keystone Actuation Inc.",
+    "producer": "KA DocGen 1.4",
+    "creationDate": "D:20260916091500Z",
+    "lines": [
+     "CERTIFICATE OF CONFORMANCE",
+     "Certificate No: KA-COC-26-0412",
+     "Supplier: Keystone Actuation Inc.",
+     "Model: KA-80 Rotary Actuator",
+     "Serial/Batch: KA80-2026-B0412",
+     "Conforms to: KA-80 datasheet rev F",
+     "Quality system: ISO 9001:2015 cert QS-55120",
+     "Date: 2026-09-16"
+    ]
+   },
+   "extracted": {
+    "documentType": "certificate_of_conformance",
+    "certNumber": "KA-COC-26-0412",
+    "issuer": "Keystone Actuation Inc.",
+    "issuedDate": "2026-09-16",
+    "expiryDate": null,
+    "subjectCompany": "Keystone Actuation Inc.",
+    "facilityAddress": null,
+    "model": "KA-80 Rotary Actuator",
+    "serialOrBatch": "KA80-2026-B0412",
+    "countryOfOrigin": null,
+    "components": [],
+    "disclosedSubtierChanges": [],
+    "summary": "Batch KA80-2026-B0412 conforms to the KA-80 datasheet rev F."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_A_coo",
+   "supplierId": "sup_A",
+   "kind": "certificate_of_origin",
+   "held": true,
+   "filename": "KA80-2026-B0412_certificate_of_origin.pdf",
+   "pdf": {
+    "title": "Certificate of Origin",
+    "author": "Keystone Actuation Inc.",
+    "producer": "KA DocGen 1.4",
+    "creationDate": "D:20260916093000Z",
+    "lines": [
+     "CERTIFICATE OF ORIGIN",
+     "Certificate No: KA-COO-26-0412",
+     "Manufacturer: Keystone Actuation Inc.",
+     "Model: KA-80 Rotary Actuator   Serial/Batch: KA80-2026-B0412",
+     "Country of origin (final article): US",
+     "Frameless BLDC motor - Keystone Actuation Inc. - US",
+     "Strain-wave reducer - Great Lakes Gearworks - US",
+     "Absolute encoder - Prairie Sensor Labs - US",
+     "NdFeB magnet set - Kitakami Magnet Works - JP",
+     "Machined aluminum housing - Keystone Actuation Inc. - US",
+     "Motor driver board - Susquehanna Circuits - US",
+     "Date: 2026-09-16"
+    ]
+   },
+   "extracted": {
+    "documentType": "certificate_of_origin",
+    "certNumber": "KA-COO-26-0412",
+    "issuer": "Keystone Actuation Inc.",
+    "issuedDate": "2026-09-16",
+    "expiryDate": null,
+    "subjectCompany": "Keystone Actuation Inc.",
+    "facilityAddress": null,
+    "model": "KA-80 Rotary Actuator",
+    "serialOrBatch": "KA80-2026-B0412",
+    "countryOfOrigin": "US",
+    "components": [
+     {
+      "name": "Frameless BLDC motor",
+      "supplierName": "Keystone Actuation Inc.",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Strain-wave reducer",
+      "supplierName": "Great Lakes Gearworks",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Absolute encoder",
+      "supplierName": "Prairie Sensor Labs",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "NdFeB magnet set",
+      "supplierName": "Kitakami Magnet Works",
+      "countryOfOrigin": "JP"
+     },
+     {
+      "name": "Machined aluminum housing",
+      "supplierName": "Keystone Actuation Inc.",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Motor driver board",
+      "supplierName": "Susquehanna Circuits",
+      "countryOfOrigin": "US"
+     }
+    ],
+    "disclosedSubtierChanges": [],
+    "summary": "US origin for the KA-80 batch; five of six components US, magnets from Japan."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_A_bom",
+   "supplierId": "sup_A",
+   "kind": "bom",
+   "held": true,
+   "filename": "KA80_rev_F_BOM.pdf",
+   "pdf": {
+    "title": "Bill of Materials KA-80 rev F",
+    "author": "Keystone Actuation Inc.",
+    "producer": "KA DocGen 1.4",
+    "creationDate": "D:20260915120000Z",
+    "lines": [
+     "BILL OF MATERIALS - KA-80 ROTARY ACTUATOR REV F",
+     "Supplier: Keystone Actuation Inc.",
+     "Serial/Batch: KA80-2026-B0412",
+     "Frameless BLDC motor - Keystone Actuation Inc. - US",
+     "Strain-wave reducer - Great Lakes Gearworks - US",
+     "Absolute encoder - Prairie Sensor Labs - US",
+     "NdFeB magnet set - Kitakami Magnet Works - JP",
+     "Machined aluminum housing - Keystone Actuation Inc. - US",
+     "Motor driver board - Susquehanna Circuits - US",
+     "Sub-tier changes since previous revision: none",
+     "Date: 2026-09-15"
+    ]
+   },
+   "extracted": {
+    "documentType": "bom",
+    "certNumber": null,
+    "issuer": "Keystone Actuation Inc.",
+    "issuedDate": "2026-09-15",
+    "expiryDate": null,
+    "subjectCompany": "Keystone Actuation Inc.",
+    "facilityAddress": null,
+    "model": "KA-80 Rotary Actuator",
+    "serialOrBatch": "KA80-2026-B0412",
+    "countryOfOrigin": null,
+    "components": [
+     {
+      "name": "Frameless BLDC motor",
+      "supplierName": "Keystone Actuation Inc.",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Strain-wave reducer",
+      "supplierName": "Great Lakes Gearworks",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Absolute encoder",
+      "supplierName": "Prairie Sensor Labs",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "NdFeB magnet set",
+      "supplierName": "Kitakami Magnet Works",
+      "countryOfOrigin": "JP"
+     },
+     {
+      "name": "Machined aluminum housing",
+      "supplierName": "Keystone Actuation Inc.",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Motor driver board",
+      "supplierName": "Susquehanna Circuits",
+      "countryOfOrigin": "US"
+     }
+    ],
+    "disclosedSubtierChanges": [],
+    "summary": "Six-line BOM for KA-80 rev F; no sub-tier changes."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_A_facility",
+   "supplierId": "sup_A",
+   "kind": "facility_attestation",
+   "held": false,
+   "filename": "Keystone_facility_attestation_York.pdf",
+   "pdf": {
+    "title": "Facility Attestation",
+    "author": "Keystone Actuation Inc.",
+    "producer": "KA DocGen 1.4",
+    "creationDate": "D:20261105090000Z",
+    "lines": [
+     "FACILITY ATTESTATION",
+     "Company: Keystone Actuation Inc.",
+     "Facility: 2750 Eastern Blvd, York, PA 17402",
+     "Operations: motor winding, machining, final assembly and end-of-line test",
+     "Headcount on site: 64",
+     "Signed: M. Okafor, VP Operations",
+     "Date: 2026-11-05"
+    ]
+   },
+   "extracted": {
+    "documentType": "facility_attestation",
+    "certNumber": null,
+    "issuer": "Keystone Actuation Inc.",
+    "issuedDate": "2026-11-05",
+    "expiryDate": null,
+    "subjectCompany": "Keystone Actuation Inc.",
+    "facilityAddress": "2750 Eastern Blvd, York, PA 17402",
+    "model": null,
+    "serialOrBatch": null,
+    "countryOfOrigin": "US",
+    "components": [],
+    "disclosedSubtierChanges": [],
+    "summary": "Signed attestation of a 64-person manufacturing facility in York, PA (winding, machining, assembly, test)."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_B_test_report",
+   "supplierId": "sup_B",
+   "kind": "test_report",
+   "held": true,
+   "filename": "GLTC-26-00451_MMJ3_test_report.pdf",
+   "pdf": {
+    "title": "Test Report GLTC-26-00451",
+    "author": "Great Lakes Test & Certification",
+    "producer": "GLTC CertSuite 3.1",
+    "creationDate": "D:20260905154500Z",
+    "lines": [
+     "GREAT LAKES TEST & CERTIFICATION - TEST REPORT",
+     "Certificate No: GLTC-26-00451",
+     "Issuer: Great Lakes Test & Certification",
+     "Client: Midland Motion Assembly LLC",
+     "Model: MM-J3 Robotic Joint Module",
+     "Serial/Batch: MMJ3-2026 (type test)",
+     "Tests: torque ripple, backlash < 1 arcmin, thermal derating, EtherCAT conformance",
+     "Result: PASS",
+     "Issued: 2026-09-05",
+     "Template: GLTC-TR-3"
+    ]
+   },
+   "extracted": {
+    "documentType": "test_report",
+    "certNumber": "GLTC-26-00451",
+    "issuer": "Great Lakes Test & Certification",
+    "issuedDate": "2026-09-05",
+    "expiryDate": null,
+    "subjectCompany": "Midland Motion Assembly LLC",
+    "facilityAddress": null,
+    "model": "MM-J3 Robotic Joint Module",
+    "serialOrBatch": "MMJ3-2026",
+    "countryOfOrigin": null,
+    "components": [],
+    "disclosedSubtierChanges": [],
+    "summary": "Third-party type test for the MM-J3 joint module family (2026 production)."
+   },
+   "metadata": {
+    "templateId": "GLTC-TR-3"
+   }
+  },
+  {
+   "id": "doc_B_facility",
+   "supplierId": "sup_B",
+   "kind": "facility_attestation",
+   "held": true,
+   "filename": "MidlandMotion_facility_attestation.pdf",
+   "pdf": {
+    "title": "Facility Attestation",
+    "author": "Midland Motion Assembly LLC",
+    "producer": "Microsoft Word 2024",
+    "creationDate": "D:20260820110000Z",
+    "lines": [
+     "FACILITY ATTESTATION",
+     "Company: Midland Motion Assembly LLC",
+     "Facility: 4100 James Savage Rd, Midland, MI 48642",
+     "Operations: joint module assembly, calibration and test",
+     "Headcount on site: 38",
+     "Signed: R. Delgado, Director of Quality",
+     "Date: 2026-08-20"
+    ]
+   },
+   "extracted": {
+    "documentType": "facility_attestation",
+    "certNumber": null,
+    "issuer": "Midland Motion Assembly LLC",
+    "issuedDate": "2026-08-20",
+    "expiryDate": null,
+    "subjectCompany": "Midland Motion Assembly LLC",
+    "facilityAddress": "4100 James Savage Rd, Midland, MI 48642",
+    "model": null,
+    "serialOrBatch": null,
+    "countryOfOrigin": "US",
+    "components": [],
+    "disclosedSubtierChanges": [],
+    "summary": "Signed attestation of a 38-person assembly and test facility in Midland, MI."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_B_coc",
+   "supplierId": "sup_B",
+   "kind": "certificate_of_conformance",
+   "held": true,
+   "filename": "MMJ3-2026-0907_CoC.pdf",
+   "pdf": {
+    "title": "Certificate of Conformance",
+    "author": "Midland Motion Assembly LLC",
+    "producer": "Microsoft Word 2024",
+    "creationDate": "D:20260908111500Z",
+    "lines": [
+     "CERTIFICATE OF CONFORMANCE",
+     "Certificate No: MMA-COC-0907",
+     "Supplier: Midland Motion Assembly LLC",
+     "Model: MM-J3 Robotic Joint Module",
+     "Serial/Batch: MMJ3-2026-0907",
+     "Conforms to: MM-J3 product specification rev C",
+     "Date: 2026-09-08"
+    ]
+   },
+   "extracted": {
+    "documentType": "certificate_of_conformance",
+    "certNumber": "MMA-COC-0907",
+    "issuer": "Midland Motion Assembly LLC",
+    "issuedDate": "2026-09-08",
+    "expiryDate": null,
+    "subjectCompany": "Midland Motion Assembly LLC",
+    "facilityAddress": null,
+    "model": "MM-J3 Robotic Joint Module",
+    "serialOrBatch": "MMJ3-2026-0907",
+    "countryOfOrigin": null,
+    "components": [],
+    "disclosedSubtierChanges": [],
+    "summary": "Batch MMJ3-2026-0907 conforms to MM-J3 specification rev C."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_B_coo",
+   "supplierId": "sup_B",
+   "kind": "certificate_of_origin",
+   "held": true,
+   "filename": "MMJ3-2026-0907_certificate_of_origin.pdf",
+   "pdf": {
+    "title": "Certificate of Origin",
+    "author": "Midland Motion Assembly LLC",
+    "producer": "Microsoft Word 2024",
+    "creationDate": "D:20260908113000Z",
+    "lines": [
+     "CERTIFICATE OF ORIGIN",
+     "Certificate No: MMA-COO-0907",
+     "Manufacturer: Midland Motion Assembly LLC",
+     "Model: MM-J3 Robotic Joint Module   Serial/Batch: MMJ3-2026-0907",
+     "Country of origin (final article): US - assembled in Midland, MI",
+     "Harmonic reducer - Tri-Cities Gear Co. - US",
+     "BLDC motor - Midland Motion Assembly LLC - US",
+     "Absolute encoder - Prairie Sensor Labs - US",
+     "Joint controller PCB - Saginaw Bay Circuits - US",
+     "Housing and output flange - Tittabawassee Machining - US",
+     "Crossed-roller bearing - Rheinwald Lager GmbH - DE",
+     "Date: 2026-09-08"
+    ]
+   },
+   "extracted": {
+    "documentType": "certificate_of_origin",
+    "certNumber": "MMA-COO-0907",
+    "issuer": "Midland Motion Assembly LLC",
+    "issuedDate": "2026-09-08",
+    "expiryDate": null,
+    "subjectCompany": "Midland Motion Assembly LLC",
+    "facilityAddress": null,
+    "model": "MM-J3 Robotic Joint Module",
+    "serialOrBatch": "MMJ3-2026-0907",
+    "countryOfOrigin": "US",
+    "components": [
+     {
+      "name": "Harmonic reducer",
+      "supplierName": "Tri-Cities Gear Co.",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "BLDC motor",
+      "supplierName": "Midland Motion Assembly LLC",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Absolute encoder",
+      "supplierName": "Prairie Sensor Labs",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Joint controller PCB",
+      "supplierName": "Saginaw Bay Circuits",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Housing and output flange",
+      "supplierName": "Tittabawassee Machining",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Crossed-roller bearing",
+      "supplierName": "Rheinwald Lager GmbH",
+      "countryOfOrigin": "DE"
+     }
+    ],
+    "disclosedSubtierChanges": [],
+    "summary": "US-assembled joint module; reducer from Tri-Cities Gear Co. (US)."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_B_bom",
+   "supplierId": "sup_B",
+   "kind": "bom",
+   "held": false,
+   "filename": "MMJ3_current_BOM_rev_D.pdf",
+   "pdf": {
+    "title": "Bill of Materials MM-J3 rev D",
+    "author": "Midland Motion Assembly LLC",
+    "producer": "Microsoft Word 2024",
+    "creationDate": "D:20261104100000Z",
+    "lines": [
+     "BILL OF MATERIALS - MM-J3 ROBOTIC JOINT MODULE REV D",
+     "Supplier: Midland Motion Assembly LLC",
+     "Serial/Batch: MMJ3-2026-1103",
+     "Harmonic reducer - Huanan Drive Components - CN",
+     "BLDC motor - Midland Motion Assembly LLC - US",
+     "Absolute encoder - Prairie Sensor Labs - US",
+     "Joint controller PCB - Saginaw Bay Circuits - US",
+     "Housing and output flange - Tittabawassee Machining - US",
+     "Crossed-roller bearing - Rheinwald Lager GmbH - DE",
+     "Sub-tier changes since previous revision: none declared",
+     "Date: 2026-11-04"
+    ]
+   },
+   "extracted": {
+    "documentType": "bom",
+    "certNumber": null,
+    "issuer": "Midland Motion Assembly LLC",
+    "issuedDate": "2026-11-04",
+    "expiryDate": null,
+    "subjectCompany": "Midland Motion Assembly LLC",
+    "facilityAddress": null,
+    "model": "MM-J3 Robotic Joint Module",
+    "serialOrBatch": "MMJ3-2026-1103",
+    "countryOfOrigin": null,
+    "components": [
+     {
+      "name": "Harmonic reducer",
+      "supplierName": "Huanan Drive Components",
+      "countryOfOrigin": "CN"
+     },
+     {
+      "name": "BLDC motor",
+      "supplierName": "Midland Motion Assembly LLC",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Absolute encoder",
+      "supplierName": "Prairie Sensor Labs",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Joint controller PCB",
+      "supplierName": "Saginaw Bay Circuits",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Housing and output flange",
+      "supplierName": "Tittabawassee Machining",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Crossed-roller bearing",
+      "supplierName": "Rheinwald Lager GmbH",
+      "countryOfOrigin": "DE"
+     }
+    ],
+    "disclosedSubtierChanges": [],
+    "summary": "Current MM-J3 BOM (rev D). No sub-tier changes declared."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_C_test_report",
+   "supplierId": "sup_C",
+   "kind": "test_report",
+   "held": false,
+   "filename": "KA80_test_report_final.pdf",
+   "copyOf": "doc_A_test_report"
+  },
+  {
+   "id": "doc_C_coo",
+   "supplierId": "sup_C",
+   "kind": "certificate_of_origin",
+   "held": true,
+   "filename": "KA80_certificate_of_origin.pdf",
+   "pdf": {
+    "title": "Certificate of Origin",
+    "author": "Keystone Actuation Co.",
+    "producer": "PDFescape Online",
+    "creationDate": "D:20261031201500Z",
+    "lines": [
+     "CERTIFICATE OF ORIGIN",
+     "Certificate No: KA-COO-26-1187",
+     "Manufacturer: Keystone Actuation Co.",
+     "Model: KA-80 Rotary Actuator   Serial/Batch: KA80-2026-C1187",
+     "Country of origin (final article): US",
+     "Date: 2026-10-31"
+    ]
+   },
+   "extracted": {
+    "documentType": "certificate_of_origin",
+    "certNumber": "KA-COO-26-1187",
+    "issuer": "Keystone Actuation Co.",
+    "issuedDate": "2026-10-31",
+    "expiryDate": null,
+    "subjectCompany": "Keystone Actuation Co.",
+    "facilityAddress": null,
+    "model": "KA-80 Rotary Actuator",
+    "serialOrBatch": "KA80-2026-C1187",
+    "countryOfOrigin": "US",
+    "components": [],
+    "disclosedSubtierChanges": [],
+    "summary": "Self-declared US origin for batch KA80-2026-C1187; no component breakdown."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_C_facility",
+   "supplierId": "sup_C",
+   "kind": "facility_attestation",
+   "held": true,
+   "filename": "facility_statement.pdf",
+   "pdf": {
+    "title": "Facility Statement",
+    "author": "Keystone Actuation Co.",
+    "producer": "PDFescape Online",
+    "creationDate": "D:20261106201000Z",
+    "lines": [
+     "FACILITY STATEMENT",
+     "Company: Keystone Actuation Co.",
+     "Facility: 1701 Concord Pike Ste 300 #4417, Wilmington, DE 19803",
+     "Operations: manufacturing and assembly",
+     "Signed: Sales Team",
+     "Date: 2026-11-06"
+    ]
+   },
+   "extracted": {
+    "documentType": "facility_attestation",
+    "certNumber": null,
+    "issuer": "Keystone Actuation Co.",
+    "issuedDate": "2026-11-06",
+    "expiryDate": null,
+    "subjectCompany": "Keystone Actuation Co.",
+    "facilityAddress": "1701 Concord Pike Ste 300 #4417, Wilmington, DE 19803",
+    "model": null,
+    "serialOrBatch": null,
+    "countryOfOrigin": "US",
+    "components": [],
+    "disclosedSubtierChanges": [],
+    "summary": "Unsigned-by-name facility statement that gives the registered mailbox address as the production site."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_C_coc",
+   "supplierId": "sup_C",
+   "kind": "certificate_of_conformance",
+   "held": true,
+   "filename": "KA80_CoC.pdf",
+   "pdf": {
+    "title": "Certificate of Conformance",
+    "author": "Keystone Actuation Co.",
+    "producer": "PDFescape Online",
+    "creationDate": "D:20261106201500Z",
+    "lines": [
+     "CERTIFICATE OF CONFORMANCE",
+     "Certificate No: KA-COC-26-1187",
+     "Supplier: Keystone Actuation Co.",
+     "Model: KA-80 Rotary Actuator",
+     "Serial/Batch: KA80-2026-C1187",
+     "Conforms to: KA-80 datasheet rev F",
+     "Date: 2026-11-06"
+    ]
+   },
+   "extracted": {
+    "documentType": "certificate_of_conformance",
+    "certNumber": "KA-COC-26-1187",
+    "issuer": "Keystone Actuation Co.",
+    "issuedDate": "2026-11-06",
+    "expiryDate": null,
+    "subjectCompany": "Keystone Actuation Co.",
+    "facilityAddress": null,
+    "model": "KA-80 Rotary Actuator",
+    "serialOrBatch": "KA80-2026-C1187",
+    "countryOfOrigin": null,
+    "components": [],
+    "disclosedSubtierChanges": [],
+    "summary": "Self-issued conformance certificate for batch KA80-2026-C1187."
+   },
+   "metadata": {}
+  },
+  {
+   "id": "doc_C_bom",
+   "supplierId": "sup_C",
+   "kind": "bom",
+   "held": true,
+   "filename": "KA80_BOM.pdf",
+   "pdf": {
+    "title": "Bill of Materials",
+    "author": "Keystone Actuation Co.",
+    "producer": "PDFescape Online",
+    "creationDate": "D:20261106202000Z",
+    "lines": [
+     "BILL OF MATERIALS - KA-80",
+     "Supplier: Keystone Actuation Co.",
+     "Serial/Batch: KA80-2026-C1187",
+     "Frameless BLDC motor - Keystone Actuation Co. - US",
+     "Strain-wave reducer - Great Lakes Gearworks - US",
+     "Absolute encoder - Prairie Sensor Labs - US",
+     "NdFeB magnet set - Kitakami Magnet Works - JP",
+     "Machined aluminum housing - Keystone Actuation Co. - US",
+     "Motor driver board - Susquehanna Circuits - US",
+     "Date: 2026-11-06"
+    ]
+   },
+   "extracted": {
+    "documentType": "bom",
+    "certNumber": null,
+    "issuer": "Keystone Actuation Co.",
+    "issuedDate": "2026-11-06",
+    "expiryDate": null,
+    "subjectCompany": "Keystone Actuation Co.",
+    "facilityAddress": null,
+    "model": "KA-80 Rotary Actuator",
+    "serialOrBatch": "KA80-2026-C1187",
+    "countryOfOrigin": null,
+    "components": [
+     {
+      "name": "Frameless BLDC motor",
+      "supplierName": "Keystone Actuation Co.",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Strain-wave reducer",
+      "supplierName": "Great Lakes Gearworks",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Absolute encoder",
+      "supplierName": "Prairie Sensor Labs",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "NdFeB magnet set",
+      "supplierName": "Kitakami Magnet Works",
+      "countryOfOrigin": "JP"
+     },
+     {
+      "name": "Machined aluminum housing",
+      "supplierName": "Keystone Actuation Co.",
+      "countryOfOrigin": "US"
+     },
+     {
+      "name": "Motor driver board",
+      "supplierName": "Susquehanna Circuits",
+      "countryOfOrigin": "US"
+     }
+    ],
+    "disclosedSubtierChanges": [],
+    "summary": "BOM copied line-for-line from the genuine KA-80 rev F BOM."
+   },
+   "metadata": {}
+  }
+ ]
+}

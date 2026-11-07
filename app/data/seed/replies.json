@@ -1,0 +1,38 @@
+{
+ "_note": "Simulated supplier replies used by StubNaive. A reply becomes available once the agent has sent at least `afterAttempt` requests on the case. attachments: document ids (documents.json) or {passport: id} for a supplier-signed passport credential (passports.json, delivery=reply). Suppliers with no entry never reply (exercises re-chase + escalation).",
+ "replies": {
+  "sup_A": [
+   {
+    "afterAttempt": 1,
+    "from": "compliance@keystoneactuation.example",
+    "body": "Hi,\n\nAttached is the signed facility attestation for our York, PA plant. CoC, CoO and BOM for batch KA80-2026-B0412 are unchanged from what you have on file.\n\nM. Okafor\nVP Operations, Keystone Actuation",
+    "attachments": [
+     "doc_A_facility"
+    ]
+   }
+  ],
+  "sup_B": [
+   {
+    "afterAttempt": 1,
+    "from": "quality@midlandmotion.example",
+    "body": "Hello,\n\nCurrent BOM (rev D) attached, along with the signed passport for our latest batch MMJ3-2026-1103, which is what will ship on this PO. Assembly remains in Midland.\n\nR. Delgado\nDirector of Quality, Midland Motion Assembly",
+    "attachments": [
+     "doc_B_bom",
+     {
+      "passport": "pp_B_2"
+     }
+    ]
+   }
+  ],
+  "sup_C": [
+   {
+    "afterAttempt": 1,
+    "from": "sales@keystone-actuation.example",
+    "body": "Hi, test report for the KA-80 attached. Can we confirm the PO this week? Pricing is only held until Friday.\n\nSales Team",
+    "attachments": [
+     "doc_C_test_report"
+    ]
+   }
+  ]
+ }
+}

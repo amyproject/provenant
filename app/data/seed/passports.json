@@ -1,0 +1,74 @@
+{
+  "_note": "Part passports, signed at seed time with each supplier's Ed25519 key. testCertificateDocs reference documents.json ids (certNumber/issuer/fileSha256 are filled from the rendered PDF). delivery 'reply' = not on file at reset; the supplier sends the signed passport as an email attachment when the agent asks (B's v2).",
+  "passports": [
+    {
+      "label": "A", "delivery": "seed",
+      "id": "pp_A_1", "version": 1, "supplierId": "sup_A",
+      "serialOrBatch": "KA80-2026-B0412", "model": "KA-80 Rotary Actuator",
+      "spec": "80 Nm continuous / 210 Nm peak, 48 VDC, IP65, absolute multi-turn encoder",
+      "firmwareVersion": "2.4.1", "issuedAt": "2026-09-15T14:00:00.000Z",
+      "components": [
+        { "name": "Frameless BLDC motor", "partNumber": "KA-M80", "supplierName": "Keystone Actuation Inc.", "countryOfOrigin": "US", "costUsd": 310 },
+        { "name": "Strain-wave reducer", "partNumber": "GLG-SW32-100", "supplierName": "Great Lakes Gearworks", "countryOfOrigin": "US", "costUsd": 240 },
+        { "name": "Absolute encoder", "partNumber": "PSL-AE19", "supplierName": "Prairie Sensor Labs", "countryOfOrigin": "US", "costUsd": 85 },
+        { "name": "NdFeB magnet set", "partNumber": "KMW-N52-80", "supplierName": "Kitakami Magnet Works", "countryOfOrigin": "JP", "costUsd": 120 },
+        { "name": "Machined aluminum housing", "partNumber": "KA-H80", "supplierName": "Keystone Actuation Inc.", "countryOfOrigin": "US", "costUsd": 95 },
+        { "name": "Motor driver board", "partNumber": "SRC-DRV48", "supplierName": "Susquehanna Circuits", "countryOfOrigin": "US", "costUsd": 150 }
+      ],
+      "testCertificateDocs": ["doc_A_test_report"]
+    },
+    {
+      "label": "B-v1", "delivery": "seed",
+      "id": "pp_B_1", "version": 1, "supplierId": "sup_B",
+      "serialOrBatch": "MMJ3-2026-0907", "model": "MM-J3 Robotic Joint Module",
+      "spec": "Integrated joint, 120 Nm peak, harmonic reduction 100:1, EtherCAT",
+      "firmwareVersion": "1.8.0", "issuedAt": "2026-09-07T16:30:00.000Z",
+      "components": [
+        { "name": "Harmonic reducer", "partNumber": "TBG-HD25-100", "supplierName": "Tri-Cities Gear Co.", "countryOfOrigin": "US", "costUsd": 280 },
+        { "name": "BLDC motor", "partNumber": "MMA-M60", "supplierName": "Midland Motion Assembly LLC", "countryOfOrigin": "US", "costUsd": 260 },
+        { "name": "Absolute encoder", "partNumber": "PSL-AE19", "supplierName": "Prairie Sensor Labs", "countryOfOrigin": "US", "costUsd": 70 },
+        { "name": "Joint controller PCB", "partNumber": "SBC-JC3", "supplierName": "Saginaw Bay Circuits", "countryOfOrigin": "US", "costUsd": 140 },
+        { "name": "Housing and output flange", "partNumber": "TCM-J3H", "supplierName": "Tittabawassee Machining", "countryOfOrigin": "US", "costUsd": 110 },
+        { "name": "Crossed-roller bearing", "partNumber": "RWL-CRB25", "supplierName": "Rheinwald Lager GmbH", "countryOfOrigin": "DE", "costUsd": 60 }
+      ],
+      "testCertificateDocs": ["doc_B_test_report"]
+    },
+    {
+      "label": "B-v2", "delivery": "reply",
+      "id": "pp_B_2", "version": 2, "prevVersionId": "pp_B_1", "supplierId": "sup_B",
+      "serialOrBatch": "MMJ3-2026-1103", "model": "MM-J3 Robotic Joint Module",
+      "spec": "Integrated joint, 120 Nm peak, harmonic reduction 100:1, EtherCAT",
+      "firmwareVersion": "1.8.2", "issuedAt": "2026-11-03T16:30:00.000Z",
+      "components": [
+        { "name": "Harmonic reducer", "partNumber": "HDC-HD25-100", "supplierName": "Huanan Drive Components", "countryOfOrigin": "CN", "costUsd": 190 },
+        { "name": "BLDC motor", "partNumber": "MMA-M60", "supplierName": "Midland Motion Assembly LLC", "countryOfOrigin": "US", "costUsd": 260 },
+        { "name": "Absolute encoder", "partNumber": "PSL-AE19", "supplierName": "Prairie Sensor Labs", "countryOfOrigin": "US", "costUsd": 70 },
+        { "name": "Joint controller PCB", "partNumber": "SBC-JC3", "supplierName": "Saginaw Bay Circuits", "countryOfOrigin": "US", "costUsd": 140 },
+        { "name": "Housing and output flange", "partNumber": "TCM-J3H", "supplierName": "Tittabawassee Machining", "countryOfOrigin": "US", "costUsd": 110 },
+        { "name": "Crossed-roller bearing", "partNumber": "RWL-CRB25", "supplierName": "Rheinwald Lager GmbH", "countryOfOrigin": "DE", "costUsd": 60 }
+      ],
+      "testCertificateDocs": ["doc_B_test_report"]
+    },
+    {
+      "label": "C", "delivery": "seed",
+      "id": "pp_C_1", "version": 1, "supplierId": "sup_C",
+      "serialOrBatch": "KA80-2026-C1187", "model": "KA-80 Rotary Actuator",
+      "spec": "80 Nm continuous / 210 Nm peak, 48 VDC, IP65, absolute multi-turn encoder",
+      "firmwareVersion": "2.4.1", "issuedAt": "2026-10-31T09:15:00.000Z",
+      "components": [
+        { "name": "Frameless BLDC motor", "partNumber": "KA-M80", "supplierName": "Keystone Actuation Co.", "countryOfOrigin": "US", "costUsd": 310 },
+        { "name": "Strain-wave reducer", "partNumber": "GLG-SW32-100", "supplierName": "Great Lakes Gearworks", "countryOfOrigin": "US", "costUsd": 240 },
+        { "name": "Absolute encoder", "partNumber": "PSL-AE19", "supplierName": "Prairie Sensor Labs", "countryOfOrigin": "US", "costUsd": 85 },
+        { "name": "NdFeB magnet set", "partNumber": "KMW-N52-80", "supplierName": "Kitakami Magnet Works", "countryOfOrigin": "JP", "costUsd": 120 },
+        { "name": "Machined aluminum housing", "partNumber": "KA-H80", "supplierName": "Keystone Actuation Co.", "countryOfOrigin": "US", "costUsd": 95 },
+        { "name": "Motor driver board", "partNumber": "SRC-DRV48", "supplierName": "Susquehanna Circuits", "countryOfOrigin": "US", "costUsd": 150 }
+      ],
+      "testCertificateDocs": ["doc_C_test_report"]
+    }
+  ],
+  "purchaseOrders": [
+    { "label": "A", "supplierId": "sup_A", "passportIds": ["pp_A_1"], "riskTier": "high", "amountUsd": 172000, "quotedUnitPriceUsd": 1720, "quotedLeadTimeDays": 35 },
+    { "label": "B", "supplierId": "sup_B", "passportIds": ["pp_B_1"], "riskTier": "high", "amountUsd": 154000, "quotedUnitPriceUsd": 1540, "quotedLeadTimeDays": 28 },
+    { "label": "C", "supplierId": "sup_C", "passportIds": ["pp_C_1"], "riskTier": "high", "amountUsd": 84500, "quotedUnitPriceUsd": 1690, "quotedLeadTimeDays": 30 }
+  ]
+}

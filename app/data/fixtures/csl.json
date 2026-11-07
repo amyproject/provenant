@@ -1,0 +1,9 @@
+{
+  "_note": "Excerpt of a Consolidated Screening List download, replaced with FICTIONAL parties for the demo. Real deployments load the full trade.gov JSON.",
+  "entries": [
+    { "name": "Northwind Dual-Use Trading FZE", "alt_names": ["Northwind DUT"], "source": "Entity List (EL) - Bureau of Industry and Security", "country": "AE" },
+    { "name": "Crimson Lattice Components Ltd", "alt_names": [], "source": "Specially Designated Nationals (SDN) - Treasury Department", "country": "RU" },
+    { "name": "Obsidian Harbor Technology Co", "alt_names": ["Obsidian Harbour Tech"], "source": "Military End User (MEU) List - Bureau of Industry and Security", "country": "CN" },
+    { "name": "Velkor Precision Systems", "alt_names": [], "source": "Denied Persons List (DPL) - Bureau of Industry and Security", "country": "BY" }
+  ]
+}

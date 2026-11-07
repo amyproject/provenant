@@ -1,0 +1,48 @@
+{
+  "_note": "Cached ImportYeti bill-of-lading summaries (fictional). Sea freight only: no record is not proof of domestic production. Keyed by lowercase legal name without punctuation (suffix kept).",
+  "companies": {
+    "keystone actuation inc": {
+      "shipments": [
+        {
+          "date": "2026-07-18",
+          "shipper": "Kitakami Magnet Works",
+          "originCountry": "JP",
+          "hsCode": "8505.11",
+          "description": "Sintered NdFeB permanent magnets",
+          "finishedGoods": false
+        },
+        {
+          "date": "2026-04-02",
+          "shipper": "Kitakami Magnet Works",
+          "originCountry": "JP",
+          "hsCode": "8505.11",
+          "description": "Sintered NdFeB permanent magnets",
+          "finishedGoods": false
+        }
+      ]
+    },
+    "midland motion assembly llc": {
+      "shipments": [
+        {
+          "date": "2026-10-06",
+          "shipper": "Huanan Drive Components",
+          "originCountry": "CN",
+          "hsCode": "8483.40",
+          "description": "Harmonic gear reducers, 100:1",
+          "finishedGoods": false
+        },
+        {
+          "date": "2026-03-11",
+          "shipper": "Rheinwald Lager GmbH",
+          "originCountry": "DE",
+          "hsCode": "8482.80",
+          "description": "Crossed roller bearings",
+          "finishedGoods": false
+        }
+      ]
+    },
+    "keystone actuation co": {
+      "shipments": []
+    }
+  }
+}

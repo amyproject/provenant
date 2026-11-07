@@ -1,0 +1,26 @@
+{
+  "_note": "Fleet + market baselines for flag 8 (unit price z-score and minimum feasible lead time).",
+  "baselines": [
+    {
+      "category": "rotary_actuator",
+      "models": [
+        "KA-80 Rotary Actuator"
+      ],
+      "unitPriceMeanUsd": 1680,
+      "unitPriceStdUsd": 190,
+      "minFeasibleLeadTimeDays": 21,
+      "sampleSize": 46
+    },
+    {
+      "category": "robotic_joint_module",
+      "models": [
+        "MM-J3 Robotic Joint Module"
+      ],
+      "unitPriceMeanUsd": 1610,
+      "unitPriceStdUsd": 210,
+      "minFeasibleLeadTimeDays": 18,
+      "sampleSize": 31
+    }
+  ],
+  "zScoreThreshold": 3
+}
