@@ -61,6 +61,8 @@ export interface StoredMeta extends Entity {
   originalJwts?: Record<string, string>;
   /** Set by /api/demo/run; cleared by /api/demo/reset. A second run before a reset is refused (409). */
   demoRun?: { supplierLabel: "A" | "B" | "C"; purchaseOrderId: string; caseId: string }[];
+  /** Request-mode autopilot switch shared by all instances (default on). Survives /api/demo/reset. */
+  autopilotEnabled?: boolean;
 }
 
 export interface Collection<T extends Entity> {
@@ -72,7 +74,11 @@ export interface Collection<T extends Entity> {
 }
 
 export interface Repo {
-  readonly kind: "memory" | "supabase";
+  readonly kind: "memory" | "supabase" | "redis";
+  /** Shared stores: pull the latest remote state (no-op for local stores). */
+  sync?(): Promise<void>;
+  /** Shared stores: write pending mutations (no-op for local stores). */
+  commit?(): Promise<void>;
   suppliers: Collection<Supplier>;
   identityChecks: Collection<StoredIdentityChecks>;
   passports: Collection<PartPassport>;

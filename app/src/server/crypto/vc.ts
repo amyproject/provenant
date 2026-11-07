@@ -150,7 +150,7 @@ export async function verifyPassportJwt(jwt: string, repo: Repo): Promise<Verify
   const decoded = claims as Record<string, unknown>;
 
   const supplierId = supplierIdFromDid(claims.iss);
-  const publicJwk = supplierId ? findSupplierPublicJwk(supplierId) : null;
+  const publicJwk = supplierId ? await findSupplierPublicJwk(supplierId) : null;
   const supplier = supplierId ? await repo.suppliers.get(supplierId) : null;
   if (!supplierId || !publicJwk || !supplier) return fail("unknown_issuer", { claims: decoded });
   const issuer = { supplierId, legalName: supplier.legalName };

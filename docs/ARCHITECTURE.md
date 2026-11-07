@@ -67,6 +67,7 @@ Need a contract change? **Message the lead** (`SendMessage` to `main`) with the 
 
 | `site/**` (repo root) | **website** (marketing team) |
 | `deck/**` (repo root) | **deck** (marketing team) |
+| `video/**` (repo root) | **video** (marketing team; own app instance on :3300) |
 | `docs/marketing/BRIEF.md` | **lead**: single source of truth for all marketing claims |
 
 The dashboard team only reads the build team's files and never messages build-team agents.

@@ -88,7 +88,9 @@ export function AutopilotToggle({ className }: { className?: string }) {
       title={
         error
           ? `Autopilot status unavailable: ${error}`
-          : `The server heartbeat advances every open case every ${((status?.intervalMs ?? 0) / 1000).toFixed(1)}s with no human input.`
+          : status?.mode === "request"
+            ? "Serverless host: due cases advance on every API request, so the agent keeps moving while this app is open."
+            : `The server heartbeat advances every open case every ${((status?.intervalMs ?? 0) / 1000).toFixed(1)}s with no human input.`
       }
       className={cn(
         "flex h-8 cursor-pointer items-center gap-2 rounded-lg border px-2.5 text-xs transition-colors",
@@ -110,7 +112,13 @@ export function AutopilotToggle({ className }: { className?: string }) {
       </span>
       {status && !error && (
         <span className="tabular hidden text-[11px] text-muted-foreground lg:inline">
-          · {status.lastTickAt ? `last tick ${formatRelative(status.lastTickAt, now)}` : "no ticks yet"} · {status.openCases} open
+          ·{" "}
+          {status.mode === "request"
+            ? "serverless (advances while the app is open)"
+            : status.lastTickAt
+              ? `last tick ${formatRelative(status.lastTickAt, now)}`
+              : "no ticks yet"}{" "}
+          · {status.openCases} open
         </span>
       )}
       <Switch

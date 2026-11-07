@@ -105,10 +105,17 @@ export function PurchaseOrderTable({ rows, compact }: { rows: PurchaseOrderDetai
 export function CommandCenter() {
   const [demoResult, setDemoResult] = useState<DemoRunResponse | null>(null);
   const [demoConflict, setDemoConflict] = useState<DemoConflict | null>(null);
-  const pos = useApi("purchase-orders", () => api.listPurchaseOrders(), 5000);
-  const cases = useApi("cases", () => api.listCases(), 5000);
+  const [fast, setFast] = useState(false);
+  // While any case is open, poll every 2.5s. On serverless hosts these requests also advance the agent.
+  const pollMs = fast ? 2500 : 5000;
+  const pos = useApi("purchase-orders", () => api.listPurchaseOrders(), pollMs);
+  const cases = useApi("cases", async () => {
+    const list = await api.listCases();
+    setFast(list.some((c) => !["monitoring", "closed", "escalated"].includes(c.state)));
+    return list;
+  }, pollMs);
   const suppliers = useApi("suppliers", () => api.listSuppliers(), 10_000);
-  const outbox = useApi("outbox", () => api.outbox(), 5000);
+  const outbox = useApi("outbox", () => api.outbox(), pollMs);
   const feed = useAgentFeed(2500, 14);
 
   const rows = pos.data ?? [];

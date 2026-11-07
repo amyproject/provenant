@@ -8,12 +8,14 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "gen-signing-key": "node scripts/gen-signing-key.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.6.0",
     "@base-ui/react": "^1.9.0",
     "@supabase/supabase-js": "^2.119.0",
+    "@upstash/redis": "^1.41.0",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",
     "fastest-levenshtein": "^1.0.16",

@@ -22,7 +22,7 @@ import { explainFlag, extractDocument, extractPdfText, isEvidenceKind } from "..
 import { evaluateFlags } from "../flags";
 import { FLAG_TITLES, applyPolicy } from "../policy";
 import { getNaive } from "../naive";
-import { getRepo, type Repo } from "../repo";
+import { getRepo, RedisRepo, type Repo } from "../repo";
 import { screenSupplier } from "../services/suppliers";
 import { newId } from "../util/ids";
 import { buildFlagContext, loadPassports } from "./context";
@@ -236,7 +236,9 @@ async function ingesting(x: StepCtx) {
         { documentId: doc.id, kind, sha256: doc.sha256, extracted: out.extracted, extractedBy: out.source },
       );
     }
-    await x.repo.inbox.put({ ...item, processed: true });
+    // Bytes are now stored as documents; keep only filenames so the store stays small.
+    const attachments = item.message.attachments.map((a) => ({ ...a, base64: "" }));
+    await x.repo.inbox.put({ ...item, processed: true, message: { ...item.message, attachments } });
     // Company identifiers supplied in the reply resolve an identity_field gap.
     if (!x.supplier.uei || !x.supplier.ein) {
       const ids = extractIdentifiers(texts.join("\n"));
@@ -466,9 +468,25 @@ async function stepUnlocked(caseId: string, opts: AgentOptions): Promise<AgentSt
   return { agentCase, newEvents: events };
 }
 
-/** Advance exactly one state. */
+/**
+ * Advance exactly one state. On the shared (Redis) store the step also holds a per-case Redis lock, pulls
+ * the latest state first and commits afterwards; if another instance holds the lock it is a no-op.
+ */
 export function step(caseId: string, opts: AgentOptions = {}): Promise<AgentStepResponse> {
-  return withLock(caseId, () => stepUnlocked(caseId, opts));
+  return withLock(caseId, async () => {
+    const repo = getRepo();
+    if (!(repo instanceof RedisRepo)) return stepUnlocked(caseId, opts);
+    const out = await repo.withCaseLock(caseId, async () => {
+      await repo.sync();
+      const res = await stepUnlocked(caseId, opts);
+      await repo.commit();
+      return res;
+    });
+    if (out) return out;
+    const current = await repo.cases.get(caseId);
+    if (!current) throw notFound("agent case", caseId);
+    return { agentCase: current, newEvents: [] };
+  });
 }
 
 /** Advance until the case rests (awaiting_supplier, monitoring, closed, escalated). Always takes at least one step. */
@@ -507,6 +525,7 @@ export async function runToCompletion(caseId: string, opts: AgentOptions = {}, m
  */
 export async function tick(opts: AgentOptions = {}): Promise<AgentStepResponse[]> {
   const nowMs = opts.now?.().getTime() ?? Date.now();
+  await getRepo().sync?.();
   const cases = (await getRepo().cases.list()).filter((c) => (opts.onlyIfDue ? isDue(c, nowMs) : !FINAL_STATES.includes(c.state)));
   const results = await Promise.all(cases.map((c) => step(c.id, opts)));
   return results.filter((r, i) => r.newEvents.length > 0 || r.agentCase.state !== cases[i].state);

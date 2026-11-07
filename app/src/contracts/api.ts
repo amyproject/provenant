@@ -164,6 +164,9 @@ export interface DemoRunResponse {
 // POST /api/agent/autopilot { enabled } -> AutopilotStatus
 export interface AutopilotStatus {
   enabled: boolean;
+  /** "interval": in-process timer (single Node host). "request": serverless (e.g. Vercel); due cases advance on
+   *  every API request plus after() continuations, so the agent keeps moving while anyone has the app open. */
+  mode: "interval" | "request";
   intervalMs: number;
   lastTickAt: string | null;
   openCases: number;
@@ -187,7 +190,10 @@ export interface IntegrationStatus {
   naive: "stub" | "live" | "live_pending";
   anthropic: "fixture" | "live";
   samGov: "fixture" | "live";
-  storage: "memory" | "supabase";
+  storage: "memory" | "redis" | "supabase";
+  /** "ephemeral": signing keys generated per server instance (serverless without SIGNING_PRIVATE_JWK) → verification
+   *  can disagree across instances. "persistent": keys from SIGNING_PRIVATE_JWK or a writable DATA_DIR. */
+  signingKeys: "persistent" | "ephemeral";
   /** PUBLIC_BASE_URL read at request time (QR codes target this); null → client uses window.location.origin. */
   publicBaseUrl: string | null;
   /** Data source behind each identity check (USPS CMRA, RDAP, CSL, ImportYeti, SAM, name match). */

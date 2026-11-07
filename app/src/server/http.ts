@@ -2,7 +2,8 @@
 // autopilot start. Business logic stays in src/server/services and src/server/agent.
 import type { z } from "zod";
 import type { ApiError } from "@/contracts";
-import { ensureAutopilot } from "./agent/autopilot";
+import { catchUp, ensureAutopilot } from "./agent/autopilot";
+import { getRepo } from "./repo";
 import { env } from "./env";
 import { ApiProblem, badRequest } from "./errors";
 import { ensureSeeded } from "./seed";
@@ -35,9 +36,13 @@ export async function handle(
   void req.url;
   try {
     authorize(req, access);
+    const repo = getRepo();
+    await repo.sync?.(); // shared store: start from the latest state
     await ensureSeeded();
-    ensureAutopilot();
+    ensureAutopilot(); // interval mode: make sure the heartbeat runs
+    await catchUp(); // request mode: advance due cases before answering
     const out = await fn();
+    await repo.commit?.(); // shared store: persist this request's mutations
     return out instanceof Response ? out : Response.json(out, { status });
   } catch (err) {
     return errorResponse(err);

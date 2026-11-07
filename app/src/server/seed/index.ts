@@ -40,6 +40,7 @@ function pdfDateToIso(d: string): string {
 /** Wipe the store and load the demo world. Deterministic: same seed -> same passports and JWTs. */
 export async function resetDemo(): Promise<void> {
   const repo = getRepo();
+  const autopilotEnabled = (await repo.meta.get(DEMO_META_ID))?.autopilotEnabled;
   await repo.clear();
   await repo.policies.put(SEED_POLICY);
 
@@ -99,6 +100,7 @@ export async function resetDemo(): Promise<void> {
     passports: passportLabels,
     policyId: DEFAULT_POLICY_ID,
     pendingPassports,
+    ...(autopilotEnabled !== undefined ? { autopilotEnabled } : {}),
   });
 }
 

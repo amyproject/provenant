@@ -209,8 +209,9 @@ export const INTEGRATIONS = {
   storage: {
     name: "Storage",
     role: "Suppliers, passports, flags, agent cases and audit log",
-    env: ["SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"],
+    env: ["KV_REST_API_URL", "KV_REST_API_TOKEN"],
     liveValue: "supabase",
-    offLabel: "In-memory",
+    altLiveValue: "redis",
+    offLabel: "In-memory (per server instance)",
   },
 } as const;

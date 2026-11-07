@@ -110,7 +110,7 @@ function DataSources() {
     { label: "SAM.gov registry", live: q.data.samGov === "live", value: q.data.samGov },
     { label: "Claude extraction", live: q.data.anthropic === "live", value: q.data.anthropic },
     { label: "Supplier email (Naive)", live: q.data.naive === "live", value: q.data.naive === "live_pending" ? "stub (key detected)" : q.data.naive },
-    { label: "Storage", live: q.data.storage === "supabase", value: q.data.storage },
+    { label: "Storage", live: q.data.storage !== "memory", value: q.data.storage },
     ...(Object.entries(q.data.checkSources ?? {}) as [IdentityCheckKind, DataSource][]).map(([k, src]) => ({
       label: IDENTITY_CHECK_LABEL[k]?.source ?? k,
       live: src === "live",

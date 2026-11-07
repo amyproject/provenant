@@ -16,3 +16,15 @@ The image has never been built here (no docker daemon), so build it once on the 
 5. Presenter: enter the token in `/settings` before going on stage (otherwise a prompt pops up mid-demo). Don't reset while cases are mid-step.
 
 Local equivalent: `cd app && npm run build && npx next start`.
+
+## Vercel (serverless): supported with two extra settings
+
+Vercel has a read-only disk, no background process, and many instances, so the defaults above don't hold. The app detects Vercel and
+switches to: store/keys in `/tmp`, and a **request-driven autopilot** (the agent advances on every API request while the app is
+open, plus `after()` continuations). For a reliable demo:
+1. Project → Settings → **Root Directory = `app`**. Framework: Next.js.
+2. **Storage → Marketplace → Upstash Redis → Connect.** This sets `KV_REST_API_URL` / `KV_REST_API_TOKEN`, so every instance shares one store.
+3. Env **`SIGNING_PRIVATE_JWK`** = output of `cd app && npm run gen-signing-key`, so all instances sign and verify with the same keys.
+4. Env `DEMO_ADMIN_TOKEN=<random>` (public URL). Optional `PUBLIC_BASE_URL=https://<project>.vercel.app`.
+5. Redeploy → `/settings` should show storage **redis**, signing keys **persistent**, autopilot **request** → reset → Run.
+Without step 2 a single warm instance usually works, but data can differ between instances, so don't rely on it on stage.

@@ -238,7 +238,7 @@ describe("integration status in fixture mode", () => {
     const r = await call<IntegrationStatus>(await routes.integrations(), "GET", "/api/integrations/status");
     expect(r.status).toBe(200);
     const { checkSources, ...rest } = r.body;
-    expect(rest).toEqual({ naive: "stub", anthropic: "fixture", samGov: "fixture", storage: "memory", publicBaseUrl: null });
+    expect(rest).toEqual({ naive: "stub", anthropic: "fixture", samGov: "fixture", storage: "memory", publicBaseUrl: null, signingKeys: "ephemeral" });
     // Contract v2.4: every identity check reports its data source; with no keys none may claim "live".
     expect(checkSources).toEqual({
       sam_registration: "fixture",

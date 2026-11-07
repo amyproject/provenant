@@ -3,6 +3,9 @@ import { ApiProblem } from "@/server/errors";
 import { handle } from "@/server/http";
 import { runDemo } from "@/server/services/demo";
 
+/** Serverless: give the after() continuation (agent driving ~20 s) room to finish. */
+export const maxDuration = 60;
+
 /**
  * Create the three demo POs and return immediately; the server autopilot drives them to decisions.
  * Idempotent: if the demo already ran since the last reset, 409 { error, results } with the existing run.

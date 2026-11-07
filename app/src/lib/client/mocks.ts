@@ -918,7 +918,7 @@ simClock = null;
 
 // ---------------------------------------------------------------- mock server-side autopilot
 
-const autopilot = { enabled: true, intervalMs: 1500, lastTickAt: null as string | null };
+const autopilot = { enabled: true, mode: "interval" as const, intervalMs: 1500, lastTickAt: null as string | null };
 
 function openCaseIds() {
   return store.cases.filter((c) => (store.scripts[c.id]?.length ?? 0) > 0).map((c) => c.id);
@@ -1262,6 +1262,7 @@ export const mockApi: Api = {
 
   integrationStatus: () =>
     respond<IntegrationStatus>(() => ({ naive: "stub", anthropic: "fixture", samGov: "fixture", storage: "memory",
+      signingKeys: "persistent",
       publicBaseUrl: null,
       checkSources: {
         sam_registration: "fixture",

@@ -3,11 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { InfoIcon, PlayIcon, RotateCcwIcon, SparklesIcon, XIcon } from "lucide-react";
+import { InfoIcon, PlayIcon, RotateCcwIcon, SparklesIcon, TriangleAlertIcon, XIcon } from "lucide-react";
 import type { AgentState, Decision, DemoRunResponse } from "@/contracts";
 import { api, ApiClientError, errorMessage } from "@/lib/client/api";
 import { invalidateAll } from "@/lib/client/hooks";
 import { poLabel } from "@/lib/format";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { AgentStateBadge, DecisionBadge } from "@/components/status";
 
@@ -63,7 +64,9 @@ export function DemoControls({
     } catch (e) {
       if (e instanceof ApiClientError && e.status === 409) {
         const results = (e.details as { results?: DemoRunResponse["results"] } | undefined)?.results ?? [];
-        onConflict({ message: e.message, results });
+        onConflict({ kind: "conflict", message: e.message, results });
+      } else if (e instanceof ApiClientError && (e.status >= 500 || e.status === 0)) {
+        onConflict({ kind: "error", message: errorMessage(e), results: [] });
       }
       else toast.error("Demo run failed", { description: errorMessage(e) });
     } finally {
@@ -86,20 +89,40 @@ export function DemoControls({
 }
 
 export interface DemoConflict {
+  /** "conflict": demo already ran (409). "error": server or network failure (5xx / no response). */
+  kind: "conflict" | "error";
   message: string;
   results: DemoRunResponse["results"];
 }
 
 /** Inline notice for POST /api/demo/run → 409: the demo POs already exist. */
 export function DemoConflictNotice({ conflict, onReset, onDismiss }: { conflict: DemoConflict; onReset: () => void; onDismiss: () => void }) {
-  const { message, results } = conflict;
+  const { kind, message, results } = conflict;
   const { reset, resetting } = useResetDemo(onReset);
   return (
-    <div className="relative mb-5 flex flex-wrap items-center gap-3 rounded-xl border border-quarantined/40 bg-quarantined/[0.07] px-4 py-3 pr-10">
-      <InfoIcon className="size-4 text-[color-mix(in_oklch,var(--quarantined),black_25%)]" />
+    <div
+      className={cn(
+        "relative mb-5 flex flex-wrap items-center gap-3 rounded-xl border px-4 py-3 pr-10",
+        kind === "error" ? "border-blocked/35 bg-blocked/[0.06]" : "border-quarantined/40 bg-quarantined/[0.07]",
+      )}
+    >
+      {kind === "error" ? (
+        <TriangleAlertIcon className="size-4 text-blocked" />
+      ) : (
+        <InfoIcon className="size-4 text-[color-mix(in_oklch,var(--quarantined),black_25%)]" />
+      )}
       <div className="min-w-0 flex-1 text-[13px]" title={`Server: ${message}`}>
-        <span className="font-medium">The demo has already run.</span>{" "}
-        <span className="text-muted-foreground">Reset to reseed suppliers A, B and C, then run it again.</span>
+        {kind === "error" ? (
+          <>
+            <span className="font-medium text-blocked">The demo run failed on the server.</span>{" "}
+            <span className="text-muted-foreground">{message}. Reset the demo and try again.</span>
+          </>
+        ) : (
+          <>
+            <span className="font-medium">The demo has already run.</span>{" "}
+            <span className="text-muted-foreground">Reset to reseed suppliers A, B and C, then run it again.</span>
+          </>
+        )}
         {results.length > 0 && (
           <div className="mt-1.5 flex flex-wrap gap-1.5">
             {results.map((r) => (

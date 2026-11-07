@@ -71,7 +71,7 @@ function IntegrationFooter() {
         { label: "Naive", on: data.naive === "live", text: data.naive === "live_pending" ? "key set · stub" : data.naive },
         { label: "Claude", on: data.anthropic === "live", text: data.anthropic },
         { label: "SAM.gov", on: data.samGov === "live", text: data.samGov },
-        { label: "Storage", on: data.storage === "supabase", text: data.storage },
+        { label: "Storage", on: data.storage !== "memory", text: data.storage },
       ]
     : [];
   return (

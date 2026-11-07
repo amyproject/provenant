@@ -1,5 +1,5 @@
 import type { DemoRunResponse, PartPassport, TamperRequest, TamperResponse } from "@/contracts";
-import { kickCase } from "../agent/autopilot";
+import { kickCases } from "../agent/autopilot";
 import { reopenAfterPassportRestore, runToCompletion } from "../agent/machine";
 import { signPassport, tamperJwt } from "../crypto/vc";
 import { ApiProblem, badRequest, notFound } from "../errors";
@@ -32,7 +32,7 @@ export async function runDemo(): Promise<DemoRunResponse> {
   }
   const meta = await repo.meta.get(DEMO_META_ID);
   if (meta) await repo.meta.put({ ...meta, demoRun: results.map(({ supplierLabel, purchaseOrderId, caseId }) => ({ supplierLabel, purchaseOrderId, caseId })) });
-  for (const r of results) await kickCase(r.caseId);
+  await kickCases(results.map((r) => r.caseId));
   return { results };
 }
 
@@ -73,6 +73,10 @@ export async function tamperPassport(req: TamperRequest): Promise<TamperResponse
       await repo.meta.put({ ...meta, originalJwts: { ...meta.originalJwts, [stored.id]: stored.jwt } });
     }
     await repo.passports.put({ ...stored, jwt: tamperedJwt });
+    // Wake the agent so monitoring notices the forged passport promptly (request mode: after() continuation).
+    const watching = (await repo.purchaseOrders.list()).filter((po) => po.passportIds.includes(stored.id)).map((po) => po.id);
+    const cases = (await repo.cases.list()).filter((c) => watching.includes(c.purchaseOrderId) && c.state === "monitoring");
+    if (cases.length) await kickCases(cases.map((c) => c.id));
   }
   return { tamperedJwt };
 }
@@ -109,6 +113,7 @@ export async function restorePassport(passportId: string): Promise<PartPassport>
     await repo.meta.put({ ...meta, originalJwts: rest });
   }
   // Cases held because this passport failed verification go back through the agent (-> re-approved).
-  for (const caseId of await reopenAfterPassportRestore(passportId, new Date().toISOString())) await kickCase(caseId);
+  const reopened = await reopenAfterPassportRestore(passportId, new Date().toISOString());
+  if (reopened.length) await kickCases(reopened);
   return getPassport(passportId);
 }

@@ -2,7 +2,7 @@
 
 import { useState, useSyncExternalStore } from "react";
 import { toast } from "sonner";
-import { KeyRoundIcon, PlugIcon, SaveIcon, XIcon } from "lucide-react";
+import { KeyRoundIcon, PlugIcon, SaveIcon, TriangleAlertIcon, XIcon } from "lucide-react";
 import type { BuyerPolicy, DataSource, EvidenceKind, FlagId, IdentityCheckKind, RiskTier } from "@/contracts";
 import { api, DEMO_TOKEN_KEY, errorMessage, USE_MOCKS } from "@/lib/client/api";
 import { invalidateAll, useApi } from "@/lib/client/hooks";
@@ -21,6 +21,8 @@ const TIERS: RiskTier[] = ["low", "medium", "high"];
 function IntegrationsPanel() {
   const q = useApi("integrations", () => api.integrationStatus(), 15_000);
   const autopilot = useAutopilot();
+  const serverless = autopilot.status?.mode === "request";
+  const unreliable = !!q.data && (q.data.signingKeys === "ephemeral" || (serverless && q.data.storage === "memory"));
   return (
     <Panel
       title={
@@ -38,10 +40,43 @@ function IntegrationsPanel() {
         <LoadingRows rows={4} />
       ) : (
         <ul className="divide-y">
+          {unreliable && (
+            <li className="flex items-start gap-2.5 bg-blocked/5 px-4 py-3 text-xs">
+              <TriangleAlertIcon className="mt-0.5 size-4 shrink-0 text-blocked" />
+              <div>
+                <div className="font-medium text-blocked">Serverless host without shared storage</div>
+                <div className="mt-0.5 text-muted-foreground">
+                  Set <code className="rounded bg-muted px-1 font-mono text-[10.5px] text-foreground">SIGNING_PRIVATE_JWK</code> and connect
+                  Upstash Redis (Vercel → Storage → Upstash) for reliable demos. Otherwise each instance can hold different cases and
+                  signing keys, so signatures may fail to verify across requests.
+                </div>
+              </div>
+            </li>
+          )}
+          <li className="flex flex-wrap items-start gap-3 px-4 py-3">
+            <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", q.data.signingKeys === "persistent" ? "bg-approved" : "bg-blocked")} />
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[13px] font-medium">Signing keys</span>
+                <span
+                  className={cn(
+                    "rounded-md border px-1.5 text-[11px] font-medium",
+                    q.data.signingKeys === "persistent" ? "border-approved/25 bg-approved/10 text-approved" : "border-blocked/30 bg-blocked/10 text-blocked",
+                  )}
+                >
+                  {q.data.signingKeys === "persistent" ? "Persistent" : "Ephemeral (per instance)"}
+                </span>
+              </div>
+              <div className="mt-0.5 text-xs text-muted-foreground">
+                Ed25519 keys that sign passports, credentials and decision records.
+                {q.data.signingKeys === "ephemeral" && " Set SIGNING_PRIVATE_JWK so every instance signs and verifies with the same key."}
+              </div>
+            </div>
+          </li>
           {(Object.keys(INTEGRATIONS) as (keyof typeof INTEGRATIONS)[]).map((k) => {
             const meta = INTEGRATIONS[k];
             const value = q.data![k];
-            const live = value === meta.liveValue;
+            const live = value === meta.liveValue || ("altLiveValue" in meta && value === meta.altLiveValue);
             const pending = value === "live_pending" && "pendingLabel" in meta;
             return (
               <li key={k} className="flex flex-wrap items-start gap-3 px-4 py-3">
@@ -62,6 +97,12 @@ function IntegrationsPanel() {
                   {pending && (
                     <div className="mt-1.5 text-[11px] text-muted-foreground">
                       NAIVE_API_KEY is set, but the live adapter is not wired up yet, so emails still go through the stub adapter.
+                    </div>
+                  )}
+                  {k === "storage" && !live && (
+                    <div className="mt-1.5 text-[11px] text-muted-foreground">
+                      Shared storage keeps cases, passports and keys consistent across server instances. Upstash Redis (Vercel → Storage →
+                      Upstash sets the KV_REST_API_* vars) or Supabase (SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY) both work.
                     </div>
                   )}
                   {!live && !pending && (
@@ -124,9 +165,11 @@ function IntegrationsPanel() {
             <div className="min-w-0 flex-1">
               <div className="text-[13px] font-medium">Agent autopilot</div>
               <div className="mt-0.5 text-xs text-muted-foreground">
-                {autopilot.status
-                  ? `Server heartbeat (${autopilot.status.enabled ? "on" : "off"}), every ${(autopilot.status.intervalMs / 1000).toFixed(1)}s. Toggle it from the top bar.`
-                  : `Status unavailable${autopilot.error ? `: ${autopilot.error}` : ""}.`}
+                {!autopilot.status
+                  ? `Status unavailable${autopilot.error ? `: ${autopilot.error}` : ""}.`
+                  : autopilot.status.mode === "request"
+                    ? `Serverless mode (${autopilot.status.enabled ? "on" : "off"}): due cases advance on every API request, so the agent moves while the app is open.`
+                    : `Server heartbeat (${autopilot.status.enabled ? "on" : "off"}), every ${(autopilot.status.intervalMs / 1000).toFixed(1)}s. Toggle it from the top bar.`}
               </div>
             </div>
           </li>
