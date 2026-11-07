@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Building2Icon, MailIcon, PaperclipIcon, SendIcon } from "lucide-react";
 import type { AgentEvent, OutboundMessage } from "@/contracts";
 import { formatDateTime } from "@/lib/format";
+import { api } from "@/lib/client/api";
+import { useApi } from "@/lib/client/hooks";
 import { cn } from "@/lib/utils";
 import { ProviderBadge } from "@/components/status";
 import { EmptyState } from "@/components/page";
@@ -39,7 +41,7 @@ function Outbound({ msg }: { msg: OutboundMessage }) {
   );
 }
 
-function Inbound({ ev }: { ev: AgentEvent }) {
+function Inbound({ ev, stub }: { ev: AgentEvent; stub: boolean }) {
   const files = attachmentsOf(ev);
   return (
     <div className="mr-8 flex">
@@ -47,7 +49,16 @@ function Inbound({ ev }: { ev: AgentEvent }) {
         <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-muted-foreground">
           <Building2Icon className="size-3 text-brand" />
           <span className="font-medium text-foreground/80">Supplier reply</span>
-          <span className="rounded border border-brand/25 px-1 text-[10px] text-brand">received via Naive</span>
+          <span
+            className={
+              stub
+                ? "rounded border border-dashed border-quarantined/50 px-1 text-[10px] text-[color-mix(in_oklch,var(--quarantined),black_25%)]"
+                : "rounded border border-brand/25 px-1 text-[10px] text-brand"
+            }
+            title={stub ? "Simulated supplier reply from the Naive stub adapter (no live Naive token yet)" : undefined}
+          >
+            {stub ? "received via Naive (stub)" : "received via Naive"}
+          </span>
           <span className="ml-auto tabular">{formatDateTime(ev.at)}</span>
         </div>
         <div className="mt-1 text-[13px]">{ev.summary}</div>
@@ -75,6 +86,9 @@ function Inbound({ ev }: { ev: AgentEvent }) {
  * supplier's replies (agent events with actor "supplier"), oldest first.
  */
 export function EvidenceThread({ messages, events, className }: { messages: OutboundMessage[]; events: AgentEvent[]; className?: string }) {
+  const integrations = useApi("integrations", () => api.integrationStatus(), 30_000);
+  // Replies are only real Naive traffic when the live adapter is on; until then they come from the stub.
+  const stub = integrations.data ? integrations.data.naive !== "live" : true;
   const items: Item[] = [
     ...messages.map((msg) => ({ kind: "out" as const, at: msg.sentAt, msg })),
     ...events.filter((e) => e.actor === "supplier").map((ev) => ({ kind: "in" as const, at: ev.at, ev })),
@@ -88,7 +102,7 @@ export function EvidenceThread({ messages, events, className }: { messages: Outb
   }
   return (
     <div className={cn("space-y-2.5 p-3", className)}>
-      {items.map((it) => (it.kind === "out" ? <Outbound key={it.msg.id} msg={it.msg} /> : <Inbound key={it.ev.id} ev={it.ev} />))}
+      {items.map((it) => (it.kind === "out" ? <Outbound key={it.msg.id} msg={it.msg} /> : <Inbound key={it.ev.id} ev={it.ev} stub={stub} />))}
     </div>
   );
 }

@@ -70,9 +70,28 @@ export function applyPolicy(input: PolicyInput): PolicyDecision {
 
   if (decision === "approved") {
     reasons.push(
-      `All ${required.size} ${riskTier}-tier red-flag checks passed.`,
+      checkSummary(flags, required, riskTier),
       ...domesticContent.map((d) => `Domestic content ${pct(d.ratio)} meets the ${pct(d.threshold)} threshold.`),
     );
   }
   return { decision, reasons, issueCount, countedFlags: raised.map((f) => f.flag), domesticContent, hardStop };
+}
+
+const TOTAL_FLAGS = Object.keys(FLAG_TITLES).length;
+
+/** Honest summary of the tier's checks from the actual results (skips are "no data", not passes). */
+export function checkSummary(flags: FlagResult[], required: Set<FlagId>, riskTier: RiskTier): string {
+  const results = flags.filter((f) => required.has(f.flag));
+  const passed = results.filter((f) => f.status === "pass").length;
+  const skipped = results.filter((f) => f.status === "skip");
+  const notRun = required.size - results.length;
+  const raised = results.filter((f) => f.status === "flag").length;
+  const parts = [`${passed} of ${required.size} ${riskTier}-tier checks passed`];
+  if (skipped.length) parts.push(`${skipped.length} skipped (no data: ${skipped.map((f) => f.flag.slice(0, 3)).join(", ")})`);
+  if (notRun > 0) parts.push(`${notRun} not evaluated`);
+  const notRequired = TOTAL_FLAGS - required.size;
+  return (
+    `${raised ? `${raised} red flag${raised === 1 ? "" : "s"} raised` : "No red flags raised"}: ${parts.join(", ")}.` +
+    (notRequired > 0 ? ` ${notRequired} of the ${TOTAL_FLAGS} flags are not required at the ${riskTier} tier.` : "")
+  );
 }

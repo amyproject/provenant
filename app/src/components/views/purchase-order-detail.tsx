@@ -16,10 +16,10 @@ import {
   StepForwardIcon,
   UserRoundIcon,
 } from "lucide-react";
-import type { AgentCase, PartPassport, PurchaseOrderDetail } from "@/contracts";
+import type { AgentCase, FlagId, PartPassport, PurchaseOrderDetail } from "@/contracts";
 import { api, errorMessage, USE_MOCKS } from "@/lib/client/api";
 import { invalidateAll, useApi, useNow } from "@/lib/client/hooks";
-import { AGENT_STATE_LABEL, EVIDENCE_KIND_LABEL, IDENTITY_CHECK_LABEL, TERMINAL_STATES } from "@/lib/domain-meta";
+import { AGENT_STATE_LABEL, ALL_FLAGS, EVIDENCE_KIND_LABEL, IDENTITY_CHECK_LABEL, TERMINAL_STATES } from "@/lib/domain-meta";
 import { countryName, formatDateTime, formatIn, formatUsd, poLabel, truncateMiddle } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -31,7 +31,22 @@ import { EvidenceThread } from "@/components/evidence-thread";
 import { PassportCard } from "@/components/passport";
 import { AgentStateBadge, CheckStatusIcon, DECISION_STYLE, RunModeBadge } from "@/components/status";
 
-function DecisionBanner({ detail }: { detail: PurchaseOrderDetail }) {
+/** "No red flags raised · 9 passed, 1 skipped (no data)", computed from the actual flag results. */
+function flagSummary(flags: PurchaseOrderDetail["flags"], required?: FlagId[]): string | null {
+  if (flags.length === 0) return null;
+  const raised = flags.filter((f) => f.status === "flag").length;
+  const passed = flags.filter((f) => f.status === "pass").length;
+  const skips = flags.filter((f) => f.status === "skip");
+  const noData = skips.filter((f) => !required || required.includes(f.flag)).length;
+  const notRequired = required ? ALL_FLAGS.filter((id) => !required.includes(id)).length : skips.length - noData;
+  const head = raised === 0 ? "No red flags raised" : `${raised} red flag${raised === 1 ? "" : "s"} raised`;
+  const parts = [`${passed} passed`];
+  if (noData) parts.push(`${noData} skipped (no data)`);
+  if (notRequired) parts.push(`${notRequired} not required for this tier`);
+  return `${head} · ${parts.join(", ")}`;
+}
+
+function DecisionBanner({ detail, requiredFlags }: { detail: PurchaseOrderDetail; requiredFlags?: FlagId[] }) {
   const { purchaseOrder: po, supplier, agentCase } = detail;
   const s = DECISION_STYLE[po.decision];
   const label = poLabel(po.id);
@@ -47,7 +62,9 @@ function DecisionBanner({ detail }: { detail: PurchaseOrderDetail }) {
       ? agentCase
         ? `Current step: ${AGENT_STATE_LABEL[agentCase.state]}. The order stays on hold until the policy gate decides.`
         : "No agent case attached."
-      : po.decisionReasons[0] ?? `${raised} red flag${raised === 1 ? "" : "s"} raised`;
+      : po.decision === "approved"
+        ? (flagSummary(detail.flags, requiredFlags) ?? po.decisionReasons[0] ?? "No red flags raised")
+        : (po.decisionReasons[0] ?? flagSummary(detail.flags, requiredFlags) ?? `${raised} red flag${raised === 1 ? "" : "s"} raised`);
   const tone = {
     approved: "border-approved/30 bg-approved/[0.06]",
     quarantined: "border-quarantined/40 bg-quarantined/[0.08]",
@@ -264,7 +281,7 @@ export function PurchaseOrderDetailView({ id }: { id: string }) {
   return (
     <div className="space-y-5">
       <Breadcrumb id={id} />
-      <DecisionBanner detail={detail} />
+      <DecisionBanner detail={detail} requiredFlags={policy.data?.tierFlags[po.riskTier]} />
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_420px]">
         <div className="min-w-0 space-y-5">

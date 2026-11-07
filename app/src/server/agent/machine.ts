@@ -294,7 +294,8 @@ async function evaluating(x: StepCtx) {
   x.emit(
     raised.length
       ? `Ran ${results.length} red-flag rules for the ${x.po.riskTier} tier: ${plural(raised.length, "flag")} raised (${raised.map((r) => `${r.flag.slice(0, 3)} ${FLAG_TITLES[r.flag].toLowerCase()}`).join("; ")}).`
-      : `Ran ${results.length} red-flag rules for the ${x.po.riskTier} tier: all clear.`,
+      : `Ran ${results.length} red-flag rules for the ${x.po.riskTier} tier: all clear (${results.filter((r) => r.status === "pass").length} passed` +
+          `${results.some((r) => r.status === "skip") ? `, ${results.filter((r) => r.status === "skip").length} skipped for lack of data` : ""}).`,
     { results: results.map((r) => ({ flag: r.flag, status: r.status, mode: r.mode })) },
   );
   x.go("deciding");

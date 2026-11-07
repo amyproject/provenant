@@ -37,6 +37,10 @@ export function EventRow({
   const hasDetail = !!event.detail && Object.keys(event.detail).length > 0;
   const inbound = event.actor === "supplier";
   const outbound = !inbound && /via naive/i.test(event.summary);
+  const stub =
+    /\(stub\)/i.test(event.summary) ||
+    event.detail?.provider === "stub" ||
+    String(event.detail?.providerMessageId ?? "").startsWith("stub");
   return (
     <li className={cn("relative flex gap-3 rounded-md px-2 py-2", inbound && "bg-brand/[0.05]", outbound && "bg-agent/[0.04]", isNew && "animate-event-in")}>
       {!last && <span className="absolute top-9 bottom-[-0.5rem] left-[1.4rem] w-px bg-border" aria-hidden />}
@@ -53,6 +57,7 @@ export function EventRow({
           {(inbound || outbound) && (
             <span className={cn("inline-flex items-center gap-1 rounded border px-1 text-[10px]", inbound ? "border-brand/30 text-brand" : "border-agent/30 text-agent")}>
               <MailIcon className="size-2.5" /> {inbound ? "reply via Naive" : "sent via Naive"}
+              {stub && " (stub)"}
             </span>
           )}
           {showCase &&
